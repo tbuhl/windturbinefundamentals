@@ -13,6 +13,9 @@ st.set_page_config(
 )
 
 
+TRAPEZOID_INTEGRAL = np.trapezoid if hasattr(np, "trapezoid") else np.trapz
+
+
 def inject_styles() -> None:
     st.markdown(
         """
@@ -217,7 +220,7 @@ def weibull_pdf(v: np.ndarray, mean_speed: float, k: float) -> np.ndarray:
 
 
 def annual_energy_from_distribution(power_curve_kw: np.ndarray, pdf: np.ndarray, speeds: np.ndarray) -> float:
-    expected_power_kw = np.trapz(power_curve_kw * pdf, speeds)
+    expected_power_kw = TRAPEZOID_INTEGRAL(power_curve_kw * pdf, speeds)
     return expected_power_kw * 8760
 
 
