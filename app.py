@@ -14,6 +14,16 @@ st.set_page_config(
 
 
 TRAPEZOID_INTEGRAL = np.trapezoid if hasattr(np, "trapezoid") else np.trapz
+INK = "#102a32"
+MUTED = "#4d626a"
+TEAL = "#0f6c74"
+SKY = "#8dc7c3"
+AMBER = "#c96a3a"
+RUST = "#8f3f23"
+PAPER = "#fbfcfb"
+PAPER_ALT = "#f3f7f6"
+GRID = "rgba(16, 42, 50, 0.12)"
+HERO_INK = "#f7faf9"
 
 
 def inject_styles() -> None:
@@ -23,26 +33,34 @@ def inject_styles() -> None:
         @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;700&display=swap');
 
         :root {
-            --sand: #f4efe6;
-            --paper: rgba(255, 250, 243, 0.88);
-            --ink: #16343b;
-            --teal: #1f6b75;
-            --sky: #7cc6cf;
-            --amber: #db7c3d;
-            --rust: #a64b2a;
-            --line: rgba(22, 52, 59, 0.14);
+            --bg-top: #e5efec;
+            --bg-bottom: #f5efe4;
+            --paper: #fbfcfb;
+            --paper-alt: #f3f7f6;
+            --ink: #102a32;
+            --muted: #4d626a;
+            --teal: #0f6c74;
+            --sky: #8dc7c3;
+            --amber: #c96a3a;
+            --rust: #8f3f23;
+            --hero-ink: #f7faf9;
+            --line: rgba(16, 42, 50, 0.12);
         }
 
         .stApp {
             background:
-                radial-gradient(circle at top right, rgba(124, 198, 207, 0.32), transparent 26%),
-                radial-gradient(circle at 12% 16%, rgba(219, 124, 61, 0.24), transparent 24%),
-                linear-gradient(180deg, #f7f2e7 0%, #eef4f1 100%);
+                radial-gradient(circle at top right, rgba(141, 199, 195, 0.36), transparent 28%),
+                radial-gradient(circle at 10% 14%, rgba(201, 106, 58, 0.16), transparent 24%),
+                linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
             color: var(--ink);
         }
 
         .main > div {
             padding-top: 1.5rem;
+        }
+
+        .stApp, .stApp p, .stApp li, .stApp label, .stApp .stMarkdown, .stApp [data-testid="stMarkdownContainer"] * {
+            color: var(--ink);
         }
 
         h1, h2, h3 {
@@ -56,21 +74,29 @@ def inject_styles() -> None:
         }
 
         section[data-testid="stSidebar"] {
-            background: linear-gradient(180deg, rgba(31, 107, 117, 0.12), rgba(255, 250, 243, 0.94));
-            border-right: 1px solid rgba(22, 52, 59, 0.08);
+            background: linear-gradient(180deg, rgba(15, 108, 116, 0.12), rgba(251, 252, 251, 0.98));
+            border-right: 1px solid var(--line);
+        }
+
+        section[data-testid="stSidebar"] * {
+            color: var(--ink) !important;
         }
 
         .hero {
             padding: 1.7rem 1.9rem;
             border-radius: 28px;
             background:
-                linear-gradient(140deg, rgba(22, 52, 59, 0.95), rgba(31, 107, 117, 0.88)),
-                linear-gradient(40deg, rgba(124, 198, 207, 0.35), transparent);
-            color: #f7f2e7;
-            box-shadow: 0 20px 60px rgba(22, 52, 59, 0.18);
+                linear-gradient(140deg, #13343c, #0f6c74),
+                linear-gradient(40deg, rgba(141, 199, 195, 0.35), transparent);
+            color: var(--hero-ink);
+            box-shadow: 0 20px 60px rgba(16, 42, 50, 0.16);
             margin-bottom: 1.2rem;
             overflow: hidden;
             position: relative;
+        }
+
+        .hero, .hero * {
+            color: var(--hero-ink) !important;
         }
 
         .hero:after {
@@ -80,11 +106,10 @@ def inject_styles() -> None:
             top: -40px;
             width: 180px;
             height: 180px;
-            background: radial-gradient(circle, rgba(219, 124, 61, 0.45), transparent 65%);
+            background: radial-gradient(circle, rgba(201, 106, 58, 0.38), transparent 65%);
         }
 
         .hero h1 {
-            color: #f7f2e7;
             margin-bottom: 0.35rem;
             font-size: 3rem;
         }
@@ -109,15 +134,23 @@ def inject_styles() -> None:
             border: 1px solid var(--line);
             border-radius: 22px;
             padding: 1rem 1.1rem;
-            box-shadow: 0 10px 30px rgba(22, 52, 59, 0.06);
+            box-shadow: 0 10px 30px rgba(16, 42, 50, 0.05);
+        }
+
+        .panel, .panel * {
+            color: var(--ink) !important;
         }
 
         .formula-card {
-            background: linear-gradient(180deg, rgba(255, 250, 243, 0.94), rgba(255, 255, 255, 0.72));
+            background: linear-gradient(180deg, var(--paper), var(--paper-alt));
             border: 1px solid var(--line);
             border-radius: 20px;
             padding: 1rem 1.1rem;
             min-height: 130px;
+        }
+
+        .formula-card, .formula-card * {
+            color: var(--ink) !important;
         }
 
         .formula-card strong {
@@ -130,19 +163,27 @@ def inject_styles() -> None:
         }
 
         .mini-note {
-            border-left: 4px solid var(--amber);
+            border-left: 4px solid var(--teal);
             padding: 0.8rem 1rem;
-            background: rgba(255, 250, 243, 0.74);
+            background: rgba(251, 252, 251, 0.96);
             border-radius: 0 16px 16px 0;
             margin: 0.6rem 0 0.5rem 0;
         }
 
+        .mini-note, .mini-note * {
+            color: var(--ink) !important;
+        }
+
         div[data-testid="metric-container"] {
-            background: rgba(255, 250, 243, 0.75);
+            background: rgba(251, 252, 251, 0.98);
             border: 1px solid var(--line);
             border-radius: 18px;
             padding: 0.85rem 0.95rem;
-            box-shadow: 0 8px 24px rgba(22, 52, 59, 0.05);
+            box-shadow: 0 8px 24px rgba(16, 42, 50, 0.05);
+        }
+
+        div[data-testid="metric-container"] * {
+            color: var(--ink) !important;
         }
 
         .stTabs [data-baseweb="tab-list"] {
@@ -150,16 +191,37 @@ def inject_styles() -> None:
         }
 
         .stTabs [data-baseweb="tab"] {
-            background: rgba(255, 250, 243, 0.65);
+            background: rgba(251, 252, 251, 0.9);
             border-radius: 999px;
             padding: 0.65rem 1rem;
-            border: 1px solid rgba(22, 52, 59, 0.08);
+            border: 1px solid var(--line);
             font-family: "Space Grotesk", "Trebuchet MS", sans-serif;
+            color: var(--ink) !important;
         }
 
         .stTabs [aria-selected="true"] {
-            background: rgba(31, 107, 117, 0.16);
-            border-color: rgba(31, 107, 117, 0.25);
+            background: rgba(15, 108, 116, 0.16);
+            border-color: rgba(15, 108, 116, 0.28);
+            color: var(--ink) !important;
+        }
+
+        .stSlider [data-baseweb="thumb"] {
+            background: var(--amber);
+        }
+
+        .stSlider [data-baseweb="track"] {
+            background: linear-gradient(90deg, var(--teal), var(--sky));
+        }
+
+        code, .stCode {
+            color: var(--rust) !important;
+            background: rgba(201, 106, 58, 0.08) !important;
+            border-radius: 0.35rem;
+            padding: 0.08rem 0.3rem;
+        }
+
+        .stApp a {
+            color: var(--teal);
         }
         </style>
         """,
@@ -238,7 +300,7 @@ def create_betz_figure(current_a: float) -> go.Figure:
             y=cp_values,
             mode="lines",
             name="Actuator-disk Cp",
-            line=dict(color="#db7c3d", width=4),
+            line=dict(color=AMBER, width=4),
         )
     )
     fig.add_trace(
@@ -247,7 +309,7 @@ def create_betz_figure(current_a: float) -> go.Figure:
             y=[current_cp],
             mode="markers",
             name="Selected operating point",
-            marker=dict(size=14, color="#1f6b75", line=dict(color="#f7f2e7", width=2)),
+            marker=dict(size=14, color=TEAL, line=dict(color=HERO_INK, width=2)),
         )
     )
     fig.add_trace(
@@ -256,10 +318,10 @@ def create_betz_figure(current_a: float) -> go.Figure:
             y=[betz_limit],
             mode="markers",
             name="Betz optimum",
-            marker=dict(size=14, color="#a64b2a", symbol="diamond"),
+            marker=dict(size=14, color=RUST, symbol="diamond"),
         )
     )
-    fig.add_vline(x=betz_a, line_dash="dot", line_color="#a64b2a", opacity=0.6)
+    fig.add_vline(x=betz_a, line_dash="dot", line_color=RUST, opacity=0.6)
     fig.add_annotation(
         x=betz_a,
         y=betz_limit,
@@ -268,20 +330,21 @@ def create_betz_figure(current_a: float) -> go.Figure:
         arrowhead=2,
         ax=55,
         ay=-45,
-        font=dict(color="#16343b"),
-        bgcolor="rgba(255,250,243,0.85)",
+        font=dict(color=INK),
+        bgcolor=PAPER,
     )
     fig.update_layout(
         height=420,
         margin=dict(l=20, r=20, t=20, b=20),
         paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(255,250,243,0.5)",
+        plot_bgcolor=PAPER_ALT,
+        font=dict(color=INK, family="Space Grotesk, Trebuchet MS, sans-serif"),
         legend=dict(orientation="h", y=1.05, x=0),
         xaxis_title="Axial induction factor a",
         yaxis_title="Power coefficient Cp",
     )
-    fig.update_xaxes(gridcolor="rgba(22,52,59,0.08)")
-    fig.update_yaxes(gridcolor="rgba(22,52,59,0.08)", range=[0, 0.65])
+    fig.update_xaxes(gridcolor=GRID, color=INK)
+    fig.update_yaxes(gridcolor=GRID, color=INK, range=[0, 0.65])
     return fig
 
 
@@ -299,7 +362,7 @@ def create_velocity_figure(a: float) -> go.Figure:
             y=u_up,
             mode="lines",
             name="Upstream induction",
-            line=dict(color="#1f6b75", width=4),
+            line=dict(color=TEAL, width=4),
         )
     )
     fig.add_trace(
@@ -308,45 +371,46 @@ def create_velocity_figure(a: float) -> go.Figure:
             y=u_down,
             mode="lines",
             name="Downstream wake speed",
-            line=dict(color="#a64b2a", width=4),
+            line=dict(color=RUST, width=4),
         )
     )
-    fig.add_vline(x=0, line_color="#16343b", line_dash="dash")
-    fig.add_hline(y=1, line_color="rgba(22,52,59,0.35)", line_dash="dot")
+    fig.add_vline(x=0, line_color=INK, line_dash="dash")
+    fig.add_hline(y=1, line_color="rgba(16, 42, 50, 0.3)", line_dash="dot")
     fig.add_annotation(
         x=-2.7,
         y=1.02,
         text="Free stream",
         showarrow=False,
-        font=dict(color="#16343b"),
+        font=dict(color=INK),
     )
     fig.add_annotation(
         x=0.22,
         y=1 - a + 0.03,
         text=f"Disk speed = {(1 - a):.2f} U∞",
         showarrow=False,
-        font=dict(color="#16343b"),
-        bgcolor="rgba(255,250,243,0.85)",
+        font=dict(color=INK),
+        bgcolor=PAPER,
     )
     fig.add_annotation(
         x=6.8,
         y=1 - 2 * a - 0.04,
         text=f"Far wake = {(1 - 2 * a):.2f} U∞",
         showarrow=False,
-        font=dict(color="#16343b"),
-        bgcolor="rgba(255,250,243,0.85)",
+        font=dict(color=INK),
+        bgcolor=PAPER,
     )
     fig.update_layout(
         height=360,
         margin=dict(l=20, r=20, t=20, b=20),
         paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(255,250,243,0.5)",
+        plot_bgcolor=PAPER_ALT,
+        font=dict(color=INK, family="Space Grotesk, Trebuchet MS, sans-serif"),
         legend=dict(orientation="h", y=1.05, x=0),
         xaxis_title="Distance x / D",
         yaxis_title="Centerline speed / U∞",
     )
-    fig.update_xaxes(gridcolor="rgba(22,52,59,0.08)")
-    fig.update_yaxes(gridcolor="rgba(22,52,59,0.08)", range=[max(0, 1 - 2.3 * a), 1.08])
+    fig.update_xaxes(gridcolor=GRID, color=INK)
+    fig.update_yaxes(gridcolor=GRID, color=INK, range=[max(0, 1 - 2.3 * a), 1.08])
     return fig
 
 
@@ -381,7 +445,7 @@ def create_streamtube_figure(a: float) -> go.Figure:
             x=x_all,
             y=top_all,
             mode="lines",
-            line=dict(color="#1f6b75", width=4),
+            line=dict(color=TEAL, width=4),
             name="Streamtube boundary",
         )
     )
@@ -390,7 +454,7 @@ def create_streamtube_figure(a: float) -> go.Figure:
             x=x_all,
             y=bottom_all,
             mode="lines",
-            line=dict(color="#1f6b75", width=4),
+            line=dict(color=TEAL, width=4),
             showlegend=False,
         )
     )
@@ -399,7 +463,7 @@ def create_streamtube_figure(a: float) -> go.Figure:
             x=[0, 0],
             y=[-1, 1],
             mode="lines",
-            line=dict(color="#a64b2a", width=8),
+            line=dict(color=RUST, width=8),
             name="Rotor disk",
         )
     )
@@ -408,28 +472,29 @@ def create_streamtube_figure(a: float) -> go.Figure:
         y=upstream_radius + 0.18,
         text=f"Upstream streamtube = {upstream_radius:.2f} R",
         showarrow=False,
-        font=dict(color="#16343b"),
-        bgcolor="rgba(255,250,243,0.85)",
+        font=dict(color=INK),
+        bgcolor=PAPER,
     )
     fig.add_annotation(
         x=6.6,
         y=wake_radius + 0.2,
         text=f"Far wake = {wake_radius:.2f} R",
         showarrow=False,
-        font=dict(color="#16343b"),
-        bgcolor="rgba(255,250,243,0.85)",
+        font=dict(color=INK),
+        bgcolor=PAPER,
     )
     fig.update_layout(
         height=420,
         margin=dict(l=20, r=20, t=20, b=20),
         paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(255,250,243,0.5)",
+        plot_bgcolor=PAPER_ALT,
+        font=dict(color=INK, family="Space Grotesk, Trebuchet MS, sans-serif"),
         xaxis_title="Distance x / D",
         yaxis_title="Relative streamtube radius / R",
         legend=dict(orientation="h", y=1.05, x=0),
     )
-    fig.update_xaxes(gridcolor="rgba(22,52,59,0.08)")
-    fig.update_yaxes(gridcolor="rgba(22,52,59,0.08)", scaleanchor="x", scaleratio=1)
+    fig.update_xaxes(gridcolor=GRID, color=INK)
+    fig.update_yaxes(gridcolor=GRID, color=INK, scaleanchor="x", scaleratio=1)
     return fig
 
 
@@ -441,12 +506,12 @@ def create_power_curve_figure(speeds: np.ndarray, power_curve_kw: np.ndarray, ra
             y=power_curve_kw,
             mode="lines",
             name="Power curve",
-            line=dict(color="#db7c3d", width=4),
+            line=dict(color=AMBER, width=4),
         )
     )
     fig.add_hline(
         y=rated_power_kw,
-        line_color="#1f6b75",
+        line_color=TEAL,
         line_dash="dot",
         annotation_text=f"Rated power = {rated_power_kw:,.0f} kW",
     )
@@ -454,12 +519,13 @@ def create_power_curve_figure(speeds: np.ndarray, power_curve_kw: np.ndarray, ra
         height=390,
         margin=dict(l=20, r=20, t=20, b=20),
         paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(255,250,243,0.5)",
+        plot_bgcolor=PAPER_ALT,
+        font=dict(color=INK, family="Space Grotesk, Trebuchet MS, sans-serif"),
         xaxis_title="Wind speed (m/s)",
         yaxis_title="Electrical power (kW)",
     )
-    fig.update_xaxes(gridcolor="rgba(22,52,59,0.08)")
-    fig.update_yaxes(gridcolor="rgba(22,52,59,0.08)")
+    fig.update_xaxes(gridcolor=GRID, color=INK)
+    fig.update_yaxes(gridcolor=GRID, color=INK)
     return fig
 
 
@@ -477,7 +543,7 @@ def create_weibull_figure(
             y=pdf,
             mode="lines",
             name="Weibull probability density",
-            line=dict(color="#1f6b75", width=4),
+            line=dict(color=TEAL, width=4),
         ),
         secondary_y=False,
     )
@@ -487,11 +553,11 @@ def create_weibull_figure(
             y=energy_weight,
             mode="lines",
             name="Relative energy content",
-            line=dict(color="#a64b2a", width=3, dash="dot"),
+            line=dict(color=RUST, width=3, dash="dot"),
         ),
         secondary_y=True,
     )
-    fig.add_vline(x=mean_speed, line_color="#16343b", line_dash="dash")
+    fig.add_vline(x=mean_speed, line_color=INK, line_dash="dash")
     fig.add_annotation(
         x=mean_speed,
         y=float(pdf.max()) * 0.92,
@@ -500,25 +566,28 @@ def create_weibull_figure(
         arrowhead=2,
         ax=50,
         ay=-35,
-        font=dict(color="#16343b"),
-        bgcolor="rgba(255,250,243,0.85)",
+        font=dict(color=INK),
+        bgcolor=PAPER,
     )
     fig.update_layout(
         height=390,
         margin=dict(l=20, r=20, t=20, b=20),
         paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(255,250,243,0.5)",
+        plot_bgcolor=PAPER_ALT,
+        font=dict(color=INK, family="Space Grotesk, Trebuchet MS, sans-serif"),
         legend=dict(orientation="h", y=1.05, x=0),
         title=f"Wind climate with Weibull shape factor k = {k:.1f}",
     )
-    fig.update_xaxes(title_text="Wind speed (m/s)", gridcolor="rgba(22,52,59,0.08)")
+    fig.update_xaxes(title_text="Wind speed (m/s)", gridcolor=GRID, color=INK)
     fig.update_yaxes(
         title_text="Probability density",
-        gridcolor="rgba(22,52,59,0.08)",
+        gridcolor=GRID,
+        color=INK,
         secondary_y=False,
     )
     fig.update_yaxes(
         title_text="Relative energy contribution",
+        color=INK,
         secondary_y=True,
         rangemode="tozero",
     )
