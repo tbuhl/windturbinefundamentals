@@ -29,7 +29,7 @@ RUST = "#8f3f23"
 PAPER = "#fbfcfb"
 PAPER_ALT = "#f3f7f6"
 GRID = "rgba(16, 42, 50, 0.12)"
-HERO_INK = "#f7faf9"
+HERO_INK = INK
 
 
 TRANSLATIONS = {
@@ -244,6 +244,74 @@ def fmt(ui: dict[str, object], key: str, **kwargs: float) -> str:
     return str(ui[key]).format(**kwargs)
 
 
+def apply_axis_style(fig: go.Figure, xaxis_title: str, yaxis_title: str) -> None:
+    fig.update_xaxes(
+        title_text=xaxis_title,
+        showline=True,
+        linecolor=INK,
+        linewidth=1.4,
+        mirror=False,
+        showgrid=True,
+        gridcolor=GRID,
+        ticks="outside",
+        tickcolor=INK,
+        tickfont=dict(color=INK, size=12),
+        title_font=dict(color=INK, size=15),
+        automargin=True,
+        showticklabels=True,
+        zeroline=False,
+        color=INK,
+    )
+    fig.update_yaxes(
+        title_text=yaxis_title,
+        showline=True,
+        linecolor=INK,
+        linewidth=1.4,
+        mirror=False,
+        showgrid=True,
+        gridcolor=GRID,
+        ticks="outside",
+        tickcolor=INK,
+        tickfont=dict(color=INK, size=12),
+        title_font=dict(color=INK, size=15),
+        automargin=True,
+        showticklabels=True,
+        zeroline=False,
+        color=INK,
+    )
+
+
+def apply_secondary_y_axis_style(fig: go.Figure, yaxis_title: str) -> None:
+    fig.update_yaxes(
+        title_text=yaxis_title,
+        showline=True,
+        linecolor=INK,
+        linewidth=1.4,
+        mirror=False,
+        showgrid=False,
+        ticks="outside",
+        tickcolor=INK,
+        tickfont=dict(color=INK, size=12),
+        title_font=dict(color=INK, size=15),
+        automargin=True,
+        showticklabels=True,
+        zeroline=False,
+        color=INK,
+        secondary_y=True,
+    )
+
+
+def apply_chart_layout(fig: go.Figure) -> None:
+    fig.update_layout(
+        template="plotly_white",
+        paper_bgcolor=PAPER,
+        plot_bgcolor=PAPER_ALT,
+        font=dict(color=INK, family="Space Grotesk, Trebuchet MS, sans-serif"),
+        legend=dict(font=dict(color=INK), orientation="h", y=1.05, x=0),
+        margin=dict(l=24, r=24, t=24, b=24),
+    )
+
+
 def inject_styles() -> None:
     st.markdown(
         """
@@ -261,7 +329,7 @@ def inject_styles() -> None:
             --sky: #8dc7c3;
             --amber: #c96a3a;
             --rust: #8f3f23;
-            --hero-ink: #f7faf9;
+            --hero-ink: #102a32;
             --line: rgba(16, 42, 50, 0.12);
         }
 
@@ -304,13 +372,14 @@ def inject_styles() -> None:
             padding: 1.7rem 1.9rem;
             border-radius: 28px;
             background:
-                linear-gradient(140deg, #13343c, #0f6c74),
-                linear-gradient(40deg, rgba(141, 199, 195, 0.35), transparent);
+                radial-gradient(circle at top right, rgba(201, 106, 58, 0.18), transparent 32%),
+                linear-gradient(140deg, rgba(251, 252, 251, 0.98), rgba(229, 239, 236, 0.98));
             color: var(--hero-ink);
             box-shadow: 0 20px 60px rgba(16, 42, 50, 0.16);
             margin-bottom: 1.2rem;
             overflow: hidden;
             position: relative;
+            border: 1px solid var(--line);
         }
 
         .hero, .hero * {
@@ -324,7 +393,7 @@ def inject_styles() -> None:
             top: -40px;
             width: 180px;
             height: 180px;
-            background: radial-gradient(circle, rgba(201, 106, 58, 0.38), transparent 65%);
+            background: radial-gradient(circle, rgba(15, 108, 116, 0.16), transparent 65%);
         }
 
         .hero h1 {
@@ -553,16 +622,12 @@ def create_betz_figure(current_a: float, ui: dict[str, object]) -> go.Figure:
     )
     fig.update_layout(
         height=420,
-        margin=dict(l=20, r=20, t=20, b=20),
-        paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor=PAPER_ALT,
-        font=dict(color=INK, family="Space Grotesk, Trebuchet MS, sans-serif"),
-        legend=dict(orientation="h", y=1.05, x=0),
         xaxis_title=str(ui["betz_xaxis"]),
         yaxis_title=str(ui["betz_yaxis"]),
     )
-    fig.update_xaxes(gridcolor=GRID, color=INK)
-    fig.update_yaxes(gridcolor=GRID, color=INK, range=[0, 0.65])
+    apply_chart_layout(fig)
+    apply_axis_style(fig, str(ui["betz_xaxis"]), str(ui["betz_yaxis"]))
+    fig.update_yaxes(range=[0, 0.65])
     return fig
 
 
@@ -619,16 +684,12 @@ def create_velocity_figure(a: float, ui: dict[str, object]) -> go.Figure:
     )
     fig.update_layout(
         height=360,
-        margin=dict(l=20, r=20, t=20, b=20),
-        paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor=PAPER_ALT,
-        font=dict(color=INK, family="Space Grotesk, Trebuchet MS, sans-serif"),
-        legend=dict(orientation="h", y=1.05, x=0),
         xaxis_title=str(ui["velocity_xaxis"]),
         yaxis_title=str(ui["velocity_yaxis"]),
     )
-    fig.update_xaxes(gridcolor=GRID, color=INK)
-    fig.update_yaxes(gridcolor=GRID, color=INK, range=[max(0, 1 - 2.3 * a), 1.08])
+    apply_chart_layout(fig)
+    apply_axis_style(fig, str(ui["velocity_xaxis"]), str(ui["velocity_yaxis"]))
+    fig.update_yaxes(range=[max(0, 1 - 2.3 * a), 1.08])
     return fig
 
 
@@ -703,16 +764,12 @@ def create_streamtube_figure(a: float, ui: dict[str, object]) -> go.Figure:
     )
     fig.update_layout(
         height=420,
-        margin=dict(l=20, r=20, t=20, b=20),
-        paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor=PAPER_ALT,
-        font=dict(color=INK, family="Space Grotesk, Trebuchet MS, sans-serif"),
         xaxis_title=str(ui["streamtube_xaxis"]),
         yaxis_title=str(ui["streamtube_yaxis"]),
-        legend=dict(orientation="h", y=1.05, x=0),
     )
-    fig.update_xaxes(gridcolor=GRID, color=INK)
-    fig.update_yaxes(gridcolor=GRID, color=INK, scaleanchor="x", scaleratio=1)
+    apply_chart_layout(fig)
+    apply_axis_style(fig, str(ui["streamtube_xaxis"]), str(ui["streamtube_yaxis"]))
+    fig.update_yaxes(scaleanchor="x", scaleratio=1)
     return fig
 
 
@@ -737,15 +794,11 @@ def create_power_curve_figure(
     )
     fig.update_layout(
         height=390,
-        margin=dict(l=20, r=20, t=20, b=20),
-        paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor=PAPER_ALT,
-        font=dict(color=INK, family="Space Grotesk, Trebuchet MS, sans-serif"),
         xaxis_title=str(ui["power_curve_xaxis"]),
         yaxis_title=str(ui["power_curve_yaxis"]),
     )
-    fig.update_xaxes(gridcolor=GRID, color=INK)
-    fig.update_yaxes(gridcolor=GRID, color=INK)
+    apply_chart_layout(fig)
+    apply_axis_style(fig, str(ui["power_curve_xaxis"]), str(ui["power_curve_yaxis"]))
     return fig
 
 
@@ -792,26 +845,45 @@ def create_weibull_figure(
     )
     fig.update_layout(
         height=390,
-        margin=dict(l=20, r=20, t=20, b=20),
-        paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor=PAPER_ALT,
-        font=dict(color=INK, family="Space Grotesk, Trebuchet MS, sans-serif"),
-        legend=dict(orientation="h", y=1.05, x=0),
         title=fmt(ui, "weibull_title", value=k),
     )
-    fig.update_xaxes(title_text=str(ui["weibull_xaxis"]), gridcolor=GRID, color=INK)
+    apply_chart_layout(fig)
+    fig.update_layout(title_font=dict(color=INK, size=17))
+    fig.update_xaxes(
+        title_text=str(ui["weibull_xaxis"]),
+        showline=True,
+        linecolor=INK,
+        linewidth=1.4,
+        showgrid=True,
+        gridcolor=GRID,
+        ticks="outside",
+        tickcolor=INK,
+        tickfont=dict(color=INK, size=12),
+        title_font=dict(color=INK, size=15),
+        automargin=True,
+        showticklabels=True,
+        zeroline=False,
+        color=INK,
+    )
     fig.update_yaxes(
         title_text=str(ui["weibull_yaxis_left"]),
+        showline=True,
+        linecolor=INK,
+        linewidth=1.4,
+        showgrid=True,
         gridcolor=GRID,
+        ticks="outside",
+        tickcolor=INK,
+        tickfont=dict(color=INK, size=12),
+        title_font=dict(color=INK, size=15),
+        automargin=True,
+        showticklabels=True,
+        zeroline=False,
         color=INK,
         secondary_y=False,
     )
-    fig.update_yaxes(
-        title_text=str(ui["weibull_yaxis_right"]),
-        color=INK,
-        secondary_y=True,
-        rangemode="tozero",
-    )
+    apply_secondary_y_axis_style(fig, str(ui["weibull_yaxis_right"]))
+    fig.update_yaxes(rangemode="tozero", secondary_y=True)
     return fig
 
 
