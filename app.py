@@ -7,7 +7,7 @@ import streamlit as st
 
 
 st.set_page_config(
-    page_title="Wind Turbine Fundamentals Lab",
+    page_title="Vindmøllens Grundprincipper",
     page_icon="W",
     layout="wide",
 )
@@ -299,7 +299,7 @@ def create_betz_figure(current_a: float) -> go.Figure:
             x=a_values,
             y=cp_values,
             mode="lines",
-            name="Actuator-disk Cp",
+            name="Cp for aktuatordisk",
             line=dict(color=AMBER, width=4),
         )
     )
@@ -308,7 +308,7 @@ def create_betz_figure(current_a: float) -> go.Figure:
             x=[current_a],
             y=[current_cp],
             mode="markers",
-            name="Selected operating point",
+            name="Valgt driftspunkt",
             marker=dict(size=14, color=TEAL, line=dict(color=HERO_INK, width=2)),
         )
     )
@@ -317,7 +317,7 @@ def create_betz_figure(current_a: float) -> go.Figure:
             x=[betz_a],
             y=[betz_limit],
             mode="markers",
-            name="Betz optimum",
+            name="Betz-optimum",
             marker=dict(size=14, color=RUST, symbol="diamond"),
         )
     )
@@ -325,7 +325,7 @@ def create_betz_figure(current_a: float) -> go.Figure:
     fig.add_annotation(
         x=betz_a,
         y=betz_limit,
-        text="Betz limit 16/27",
+        text="Betz-grænse 16/27",
         showarrow=True,
         arrowhead=2,
         ax=55,
@@ -340,8 +340,8 @@ def create_betz_figure(current_a: float) -> go.Figure:
         plot_bgcolor=PAPER_ALT,
         font=dict(color=INK, family="Space Grotesk, Trebuchet MS, sans-serif"),
         legend=dict(orientation="h", y=1.05, x=0),
-        xaxis_title="Axial induction factor a",
-        yaxis_title="Power coefficient Cp",
+        xaxis_title="Aksial induktionsfaktor a",
+        yaxis_title="Effektkoefficient Cp",
     )
     fig.update_xaxes(gridcolor=GRID, color=INK)
     fig.update_yaxes(gridcolor=GRID, color=INK, range=[0, 0.65])
@@ -361,7 +361,7 @@ def create_velocity_figure(a: float) -> go.Figure:
             x=x_up,
             y=u_up,
             mode="lines",
-            name="Upstream induction",
+            name="Induktion opstrøms",
             line=dict(color=TEAL, width=4),
         )
     )
@@ -370,7 +370,7 @@ def create_velocity_figure(a: float) -> go.Figure:
             x=x_down,
             y=u_down,
             mode="lines",
-            name="Downstream wake speed",
+            name="Hastighed i nedstrømsvåge",
             line=dict(color=RUST, width=4),
         )
     )
@@ -379,14 +379,14 @@ def create_velocity_figure(a: float) -> go.Figure:
     fig.add_annotation(
         x=-2.7,
         y=1.02,
-        text="Free stream",
+        text="Fri strøm",
         showarrow=False,
         font=dict(color=INK),
     )
     fig.add_annotation(
         x=0.22,
         y=1 - a + 0.03,
-        text=f"Disk speed = {(1 - a):.2f} U∞",
+        text=f"Hastighed ved rotor = {(1 - a):.2f} U∞",
         showarrow=False,
         font=dict(color=INK),
         bgcolor=PAPER,
@@ -394,7 +394,7 @@ def create_velocity_figure(a: float) -> go.Figure:
     fig.add_annotation(
         x=6.8,
         y=1 - 2 * a - 0.04,
-        text=f"Far wake = {(1 - 2 * a):.2f} U∞",
+        text=f"Fjernvåge = {(1 - 2 * a):.2f} U∞",
         showarrow=False,
         font=dict(color=INK),
         bgcolor=PAPER,
@@ -406,8 +406,8 @@ def create_velocity_figure(a: float) -> go.Figure:
         plot_bgcolor=PAPER_ALT,
         font=dict(color=INK, family="Space Grotesk, Trebuchet MS, sans-serif"),
         legend=dict(orientation="h", y=1.05, x=0),
-        xaxis_title="Distance x / D",
-        yaxis_title="Centerline speed / U∞",
+        xaxis_title="Afstand x / D",
+        yaxis_title="Centerlinjehastighed / U∞",
     )
     fig.update_xaxes(gridcolor=GRID, color=INK)
     fig.update_yaxes(gridcolor=GRID, color=INK, range=[max(0, 1 - 2.3 * a), 1.08])
@@ -446,7 +446,7 @@ def create_streamtube_figure(a: float) -> go.Figure:
             y=top_all,
             mode="lines",
             line=dict(color=TEAL, width=4),
-            name="Streamtube boundary",
+            name="Strømrørets grænse",
         )
     )
     fig.add_trace(
@@ -464,13 +464,13 @@ def create_streamtube_figure(a: float) -> go.Figure:
             y=[-1, 1],
             mode="lines",
             line=dict(color=RUST, width=8),
-            name="Rotor disk",
+            name="Rotorskive",
         )
     )
     fig.add_annotation(
         x=-3.2,
         y=upstream_radius + 0.18,
-        text=f"Upstream streamtube = {upstream_radius:.2f} R",
+        text=f"Strømrør opstrøms = {upstream_radius:.2f} R",
         showarrow=False,
         font=dict(color=INK),
         bgcolor=PAPER,
@@ -478,7 +478,7 @@ def create_streamtube_figure(a: float) -> go.Figure:
     fig.add_annotation(
         x=6.6,
         y=wake_radius + 0.2,
-        text=f"Far wake = {wake_radius:.2f} R",
+        text=f"Fjernvåge = {wake_radius:.2f} R",
         showarrow=False,
         font=dict(color=INK),
         bgcolor=PAPER,
@@ -489,8 +489,8 @@ def create_streamtube_figure(a: float) -> go.Figure:
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor=PAPER_ALT,
         font=dict(color=INK, family="Space Grotesk, Trebuchet MS, sans-serif"),
-        xaxis_title="Distance x / D",
-        yaxis_title="Relative streamtube radius / R",
+        xaxis_title="Afstand x / D",
+        yaxis_title="Relativ strømrørsradius / R",
         legend=dict(orientation="h", y=1.05, x=0),
     )
     fig.update_xaxes(gridcolor=GRID, color=INK)
@@ -505,7 +505,7 @@ def create_power_curve_figure(speeds: np.ndarray, power_curve_kw: np.ndarray, ra
             x=speeds,
             y=power_curve_kw,
             mode="lines",
-            name="Power curve",
+            name="Effektkurve",
             line=dict(color=AMBER, width=4),
         )
     )
@@ -513,7 +513,7 @@ def create_power_curve_figure(speeds: np.ndarray, power_curve_kw: np.ndarray, ra
         y=rated_power_kw,
         line_color=TEAL,
         line_dash="dot",
-        annotation_text=f"Rated power = {rated_power_kw:,.0f} kW",
+        annotation_text=f"Mærkeeffekt = {rated_power_kw:,.0f} kW",
     )
     fig.update_layout(
         height=390,
@@ -521,8 +521,8 @@ def create_power_curve_figure(speeds: np.ndarray, power_curve_kw: np.ndarray, ra
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor=PAPER_ALT,
         font=dict(color=INK, family="Space Grotesk, Trebuchet MS, sans-serif"),
-        xaxis_title="Wind speed (m/s)",
-        yaxis_title="Electrical power (kW)",
+        xaxis_title="Vindhastighed (m/s)",
+        yaxis_title="Elektrisk effekt (kW)",
     )
     fig.update_xaxes(gridcolor=GRID, color=INK)
     fig.update_yaxes(gridcolor=GRID, color=INK)
@@ -542,7 +542,7 @@ def create_weibull_figure(
             x=speeds,
             y=pdf,
             mode="lines",
-            name="Weibull probability density",
+            name="Weibull-sandsynlighedstæthed",
             line=dict(color=TEAL, width=4),
         ),
         secondary_y=False,
@@ -552,7 +552,7 @@ def create_weibull_figure(
             x=speeds,
             y=energy_weight,
             mode="lines",
-            name="Relative energy content",
+            name="Relativt energibidrag",
             line=dict(color=RUST, width=3, dash="dot"),
         ),
         secondary_y=True,
@@ -561,7 +561,7 @@ def create_weibull_figure(
     fig.add_annotation(
         x=mean_speed,
         y=float(pdf.max()) * 0.92,
-        text=f"Mean speed = {mean_speed:.1f} m/s",
+        text=f"Middelvind = {mean_speed:.1f} m/s",
         showarrow=True,
         arrowhead=2,
         ax=50,
@@ -576,17 +576,17 @@ def create_weibull_figure(
         plot_bgcolor=PAPER_ALT,
         font=dict(color=INK, family="Space Grotesk, Trebuchet MS, sans-serif"),
         legend=dict(orientation="h", y=1.05, x=0),
-        title=f"Wind climate with Weibull shape factor k = {k:.1f}",
+        title=f"Vindklima med Weibull-formfaktor k = {k:.1f}",
     )
-    fig.update_xaxes(title_text="Wind speed (m/s)", gridcolor=GRID, color=INK)
+    fig.update_xaxes(title_text="Vindhastighed (m/s)", gridcolor=GRID, color=INK)
     fig.update_yaxes(
-        title_text="Probability density",
+        title_text="Sandsynlighedstæthed",
         gridcolor=GRID,
         color=INK,
         secondary_y=False,
     )
     fig.update_yaxes(
-        title_text="Relative energy contribution",
+        title_text="Relativt energibidrag",
         color=INK,
         secondary_y=True,
         rangemode="tozero",
@@ -600,9 +600,9 @@ def render_formula_cards() -> None:
         st.markdown(
             """
             <div class="formula-card">
-                <strong>Power In Wind</strong>
+                <strong>Effekt i vinden</strong>
                 <div><code>P_\u200bwind = 0.5 \u03c1 A U^3</code></div>
-                <p>The available power rises with rotor area and with the cube of wind speed.</p>
+                <p>Den tilgængelige effekt vokser med rotorarealet og med vindhastigheden i tredje potens.</p>
             </div>
             """,
             unsafe_allow_html=True,
@@ -611,9 +611,9 @@ def render_formula_cards() -> None:
         st.markdown(
             """
             <div class="formula-card">
-                <strong>Betz / Momentum</strong>
+                <strong>Betz / momentteori</strong>
                 <div><code>Cp = 4a(1-a)^2</code></div>
-                <p>Axial induction <code>a</code> links rotor slowing, wake speed, and extraction efficiency.</p>
+                <p>Aksial induktion <code>a</code> kobler rotorens opbremsning, vågehastighed og energiudtag sammen.</p>
             </div>
             """,
             unsafe_allow_html=True,
@@ -622,9 +622,9 @@ def render_formula_cards() -> None:
         st.markdown(
             """
             <div class="formula-card">
-                <strong>Weibull Climate</strong>
+                <strong>Weibull-klima</strong>
                 <div><code>f(U) = (k/c)(U/c)^(k-1)e^{-(U/c)^k}</code></div>
-                <p>The mean wind and shape factor <code>k</code> set how often each wind speed occurs.</p>
+                <p>Middelvind og formfaktoren <code>k</code> bestemmer, hvor ofte hver vindhastighed forekommer.</p>
             </div>
             """,
             unsafe_allow_html=True,
@@ -635,40 +635,40 @@ def main() -> None:
     inject_styles()
 
     with st.sidebar:
-        st.header("Design Inputs")
-        radius = st.slider("Rotor radius (m)", min_value=10.0, max_value=90.0, value=45.0, step=1.0)
-        wind_speed = st.slider("Reference wind speed (m/s)", min_value=4.0, max_value=18.0, value=9.0, step=0.5)
-        rho = st.slider("Air density (kg/m^3)", min_value=1.0, max_value=1.35, value=1.225, step=0.005)
+        st.header("Designinput")
+        radius = st.slider("Rotorradius (m)", min_value=10.0, max_value=90.0, value=45.0, step=1.0)
+        wind_speed = st.slider("Referencevindhastighed (m/s)", min_value=4.0, max_value=18.0, value=9.0, step=0.5)
+        rho = st.slider("Luftdensitet (kg/m^3)", min_value=1.0, max_value=1.35, value=1.225, step=0.005)
 
-        st.header("Induction And Wake")
-        induction = st.slider("Axial induction factor a", min_value=0.05, max_value=0.45, value=0.33, step=0.01)
+        st.header("Induktion og våge")
+        induction = st.slider("Aksial induktionsfaktor a", min_value=0.05, max_value=0.45, value=0.33, step=0.01)
 
-        st.header("Simple Power Curve")
-        cp_design = st.slider("Assumed Cp below rated", min_value=0.20, max_value=0.55, value=0.44, step=0.01)
-        drivetrain_eff = st.slider("Drivetrain efficiency", min_value=0.80, max_value=0.98, value=0.92, step=0.01)
-        cut_in = st.slider("Cut-in speed (m/s)", min_value=2.0, max_value=6.0, value=3.0, step=0.5)
-        rated_speed = st.slider("Rated speed (m/s)", min_value=8.0, max_value=16.0, value=12.0, step=0.5)
-        cut_out = st.slider("Cut-out speed (m/s)", min_value=18.0, max_value=30.0, value=25.0, step=1.0)
+        st.header("Simpel effektkurve")
+        cp_design = st.slider("Antaget Cp under mærkeeffekt", min_value=0.20, max_value=0.55, value=0.44, step=0.01)
+        drivetrain_eff = st.slider("Drivlinjevirkningsgrad", min_value=0.80, max_value=0.98, value=0.92, step=0.01)
+        cut_in = st.slider("Indkoblingshastighed (m/s)", min_value=2.0, max_value=6.0, value=3.0, step=0.5)
+        rated_speed = st.slider("Mærkevindhastighed (m/s)", min_value=8.0, max_value=16.0, value=12.0, step=0.5)
+        cut_out = st.slider("Udkoblingshastighed (m/s)", min_value=18.0, max_value=30.0, value=25.0, step=1.0)
 
-        st.header("Wind Climate")
-        mean_speed = st.slider("Average wind speed (m/s)", min_value=4.0, max_value=12.0, value=7.5, step=0.1)
-        weibull_k = st.slider("Weibull shape factor k", min_value=1.2, max_value=4.0, value=2.0, step=0.1)
+        st.header("Vindklima")
+        mean_speed = st.slider("Middelvindhastighed (m/s)", min_value=4.0, max_value=12.0, value=7.5, step=0.1)
+        weibull_k = st.slider("Weibull-formfaktor k", min_value=1.2, max_value=4.0, value=2.0, step=0.1)
 
         st.markdown(
             """
             <div class="mini-note">
-            Lower <code>k</code> means a broader, gustier wind climate. Higher <code>k</code> means speeds cluster more tightly around the mean.
+            Lavere <code>k</code> betyder et bredere og mere gustent vindklima. Højere <code>k</code> betyder, at hastighederne samler sig tættere omkring middelvinden.
             </div>
             """,
             unsafe_allow_html=True,
         )
 
     if rated_speed <= cut_in:
-        st.error("Rated speed must be greater than cut-in speed.")
+        st.error("Mærkevindhastigheden skal være større end indkoblingshastigheden.")
         st.stop()
 
     if cut_out <= rated_speed:
-        st.error("Cut-out speed must be greater than rated speed.")
+        st.error("Udkoblingshastigheden skal være større end mærkevindhastigheden.")
         st.stop()
 
     cp_from_induction = float(betz_cp(induction))
@@ -708,10 +708,10 @@ def main() -> None:
     st.markdown(
         """
         <div class="hero">
-            <div class="eyebrow">Educational Streamlit App</div>
-            <h1>Wind Turbine Fundamentals Lab</h1>
-            <p>Explore how a rotor slows the wind, how the wake expands, why the Betz limit matters, and how the wind climate shapes annual energy production.</p>
-            <p>This tool is intentionally simple: it focuses on first-order physics you can inspect, tweak, and explain in a classroom or design review.</p>
+            <div class="eyebrow">Pædagogisk Streamlit-app</div>
+            <h1>Vindmøllens Grundprincipper</h1>
+            <p>Udforsk hvordan en rotor bremser vinden, hvordan vågen udvider sig, hvorfor Betz-grænsen betyder noget, og hvordan vindklimaet former den årlige energiproduktion.</p>
+            <p>Værktøjet er bevidst enkelt og fokuserer på førsteordensfysik, som er let at undersøge, justere og forklare i undervisning eller designgennemgang.</p>
         </div>
         """,
         unsafe_allow_html=True,
@@ -721,33 +721,33 @@ def main() -> None:
     st.write("")
 
     top_metrics = st.columns(5)
-    top_metrics[0].metric("Rotor area", f"{area:,.0f} m^2")
-    top_metrics[1].metric("Available wind power", f"{free_stream_power_kw:,.0f} kW")
-    top_metrics[2].metric("Current Cp from a", f"{cp_from_induction:.3f}")
-    top_metrics[3].metric("Disk speed", f"{disk_speed:.2f} m/s")
-    top_metrics[4].metric("Far wake speed", f"{wake_speed:.2f} m/s")
+    top_metrics[0].metric("Rotorareal", f"{area:,.0f} m^2")
+    top_metrics[1].metric("Tilgængelig vindeffekt", f"{free_stream_power_kw:,.0f} kW")
+    top_metrics[2].metric("Aktuel Cp fra a", f"{cp_from_induction:.3f}")
+    top_metrics[3].metric("Hastighed ved rotor", f"{disk_speed:.2f} m/s")
+    top_metrics[4].metric("Hastighed i fjernvåge", f"{wake_speed:.2f} m/s")
 
     tab1, tab2, tab3 = st.tabs(
-        ["Betz And Induction", "Wake And Power Curve", "Wind Climate And AEP"]
+        ["Betz og induktion", "Våge og effektkurve", "Vindklima og AEP"]
     )
 
     with tab1:
         left, right = st.columns([1.15, 1])
         with left:
             st.markdown('<div class="panel">', unsafe_allow_html=True)
-            st.subheader("Betz law through axial induction")
+            st.subheader("Betz' lov via aksial induktion")
             st.write(
-                "For an ideal actuator disk, the axial induction factor `a` controls how much the flow slows at the rotor. "
-                "The same `a` also sets the ideal power coefficient `Cp = 4a(1-a)^2`."
+                "For en ideel aktuatordisk styrer den aksiale induktionsfaktor `a`, hvor meget strømningen bremses ved rotoren. "
+                "Den samme `a` bestemmer også den ideelle effektkoefficient `Cp = 4a(1-a)^2`."
             )
             st.plotly_chart(create_betz_figure(induction), width="stretch")
             st.markdown("</div>", unsafe_allow_html=True)
         with right:
             st.markdown('<div class="panel">', unsafe_allow_html=True)
-            st.subheader("Upstream and downstream speed")
+            st.subheader("Hastighed opstrøms og nedstrøms")
             st.write(
-                "The rotor induces a velocity deficit before the disk, then leaves a slower far wake behind it. "
-                "In ideal 1D momentum theory:"
+                "Rotoren inducerer et hastighedstab før skiven og efterlader derefter en langsommere fjernvåge bag sig. "
+                "I ideel 1D-momentteori gælder:"
             )
             st.latex(r"U_{disk} = U_{\infty}(1-a) \qquad U_{wake} = U_{\infty}(1-2a)")
             st.plotly_chart(create_velocity_figure(induction), width="stretch")
@@ -755,12 +755,12 @@ def main() -> None:
 
         st.write("")
         st.markdown('<div class="panel">', unsafe_allow_html=True)
-        st.subheader("Three induction examples")
+        st.subheader("Tre induktionseksempler")
         example_cols = st.columns(3)
         example_cases = [
-            ("Light loading", 0.15),
-            ("Near Betz optimum", 1 / 3),
-            ("Heavy loading", 0.45),
+            ("Let belastning", 0.15),
+            ("Nær Betz-optimum", 1 / 3),
+            ("Høj belastning", 0.45),
         ]
         for col, (label, a_case) in zip(example_cols, example_cases):
             cp_case = betz_cp(a_case)
@@ -770,29 +770,29 @@ def main() -> None:
             with col:
                 st.metric(label, f"a = {a_case:.2f}")
                 st.write(f"Cp = {cp_case:.3f}")
-                st.write(f"Disk speed = {disk_case:.2f} m/s")
-                st.write(f"Far wake = {wake_case:.2f} m/s")
-                st.write(f"Wake radius = {wake_factor_case:.2f} R")
+                st.write(f"Hastighed ved rotor = {disk_case:.2f} m/s")
+                st.write(f"Fjernvåge = {wake_case:.2f} m/s")
+                st.write(f"Vågeradius = {wake_factor_case:.2f} R")
         st.markdown("</div>", unsafe_allow_html=True)
 
     with tab2:
         left, right = st.columns([1.1, 1])
         with left:
             st.markdown('<div class="panel">', unsafe_allow_html=True)
-            st.subheader("Wake expansion")
+            st.subheader("Vågeudvidelse")
             st.write(
-                "As the wake slows down, it must expand to carry the same mass flow. "
-                "In simple momentum theory, the far-wake area ratio is:"
+                "Når vågen bremses ned, må den udvide sig for at føre den samme massestrøm videre. "
+                "I simpel momentteori er forholdet for fjernvågens areal:"
             )
             st.latex(r"\frac{A_{wake}}{A_{disk}} = \frac{1-a}{1-2a}")
             st.plotly_chart(create_streamtube_figure(induction), width="stretch")
             st.markdown("</div>", unsafe_allow_html=True)
         with right:
             st.markdown('<div class="panel">', unsafe_allow_html=True)
-            st.subheader("Power curve fundamentals")
+            st.subheader("Grundprincipper i effektkurven")
             st.write(
-                "Below rated speed, this simplified model uses constant `Cp` so power follows the cubic wind-speed law. "
-                "Above rated, control holds the machine at constant power until cut-out."
+                "Under mærkevindhastigheden bruger denne forenklede model en konstant `Cp`, så effekten følger vindhastigheden i tredje potens. "
+                "Over mærkevindhastigheden holder reguleringen maskinen på konstant effekt indtil udkobling."
             )
             st.plotly_chart(
                 create_power_curve_figure(speeds, power_curve_kw, rated_power_kw),
@@ -802,19 +802,19 @@ def main() -> None:
 
         st.write("")
         bottom_metrics = st.columns(4)
-        bottom_metrics[0].metric("Extracted power now", f"{extracted_power_kw:,.0f} kW")
-        bottom_metrics[1].metric("Betz-limit power", f"{betz_limit_kw:,.0f} kW")
-        bottom_metrics[2].metric("Assumed rated power", f"{rated_power_kw:,.0f} kW")
-        bottom_metrics[3].metric("Far-wake radius", f"{wake_radius_factor:.2f} x rotor radius")
+        bottom_metrics[0].metric("Udtaget effekt nu", f"{extracted_power_kw:,.0f} kW")
+        bottom_metrics[1].metric("Effekt ved Betz-grænsen", f"{betz_limit_kw:,.0f} kW")
+        bottom_metrics[2].metric("Antaget mærkeeffekt", f"{rated_power_kw:,.0f} kW")
+        bottom_metrics[3].metric("Fjernvågeradius", f"{wake_radius_factor:.2f} x rotorradius")
 
     with tab3:
         left, right = st.columns([1.15, 1])
         with left:
             st.markdown('<div class="panel">', unsafe_allow_html=True)
-            st.subheader("Wind field influence with Weibull `k`")
+            st.subheader("Vindfeltets indflydelse med Weibull `k`")
             st.write(
-                "The same turbine behaves very differently in different wind climates. "
-                "Average wind speed shifts the distribution, while `k` changes how narrow or broad it is."
+                "Den samme vindmølle opfører sig meget forskelligt i forskellige vindklimaer. "
+                "Middelvinden flytter fordelingen, mens `k` ændrer, hvor smal eller bred den er."
             )
             st.plotly_chart(
                 create_weibull_figure(speeds, pdf, relative_energy, mean_speed, weibull_k),
@@ -823,25 +823,25 @@ def main() -> None:
             st.markdown("</div>", unsafe_allow_html=True)
         with right:
             st.markdown('<div class="panel">', unsafe_allow_html=True)
-            st.subheader("Annual energy picture")
+            st.subheader("Årsenergi i hovedtræk")
             st.write(
-                "Annual energy production comes from the overlap between the power curve and the wind-speed probability distribution."
+                "Årsenergiproduktionen kommer fra overlappet mellem effektkurven og sandsynlighedsfordelingen for vindhastigheden."
             )
-            st.metric("Average electrical power", f"{avg_power_kw:,.0f} kW")
-            st.metric("Annual energy production", f"{aep_kwh:,.0f} kWh/year")
-            st.metric("Capacity factor", f"{capacity_factor:.1%}")
+            st.metric("Middel elektrisk effekt", f"{avg_power_kw:,.0f} kW")
+            st.metric("Årlig energiproduktion", f"{aep_kwh:,.0f} kWh/år")
+            st.metric("Kapacitetsfaktor", f"{capacity_factor:.1%}")
             st.write("")
-            st.write("Helpful reading of the sliders:")
-            st.write("- Higher mean wind speed raises both energy capture and time spent near rated power.")
-            st.write("- Lower `k` spreads the wind speeds out, which can help or hurt depending on where the power curve sits.")
-            st.write("- Because power scales with `U^3`, energy often comes from winds above the mean speed.")
+            st.write("Sådan kan sliderne læses:")
+            st.write("- Højere middelvind øger både energioptaget og tiden tæt på mærkeeffekt.")
+            st.write("- Lavere `k` spreder vindhastighederne mere, hvilket kan hjælpe eller skade afhængigt af, hvor effektkurven ligger.")
+            st.write("- Fordi effekten skalerer med `U^3`, kommer en stor del af energien ofte fra vinde over middelvinden.")
             st.markdown("</div>", unsafe_allow_html=True)
 
         st.write("")
         st.markdown(
             """
             <div class="mini-note">
-            This is a first-principles teaching model. It does not include tip losses, yaw misalignment, turbulence intensity, shear, drivetrain limits beyond a simple efficiency factor, or detailed wake recovery.
+            Dette er en undervisningsmodel baseret på førsteordensprincipper. Den omfatter ikke tiptab, yaw-fejl, turbulensintensitet, vindskæring, drivlinjebegrænsninger ud over en simpel virkningsgrad eller detaljeret vågerecovery.
             </div>
             """,
             unsafe_allow_html=True,
